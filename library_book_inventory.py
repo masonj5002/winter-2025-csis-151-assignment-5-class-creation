@@ -3,6 +3,11 @@ Instructor: Edwin D. Sookiassian
 CSIS 151 - Assignment 5: Class Creation
 Name: Mason Jennings
 Date: 2-7-2025
+
+Description:
+    This class file contains a system to determine a library book's
+        inventory: containing information about the book and the
+        status of each of it's copies.
 """
 
 class LibraryBookInventory:
@@ -47,9 +52,14 @@ class LibraryBookInventory:
     def book_borrow(self):
         if self._copies_available > 0:
             self._copies_available -= 1
+            self._copies_checked_out += 1
         else:
             print(f"Sorry, there are no copies of {self.get_title()} available.")
 
     def book_return(self):
-        self._copies_available += 1
-        print(f"{self.getTitle()} has been successfully returned.")
+        if self._copies_checked_out > 0:
+            self._copies_available += 1
+            self._copies_checked_out -= 1
+            print(f"{self.get_title()} has been successfully returned.")
+        else:
+            print(f"{self.get_title()} cannot be returned because all copies are already checked in!")
